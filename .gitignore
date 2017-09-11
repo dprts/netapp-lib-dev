@@ -1,0 +1,9 @@
+*~
+.\#*
+\#*
+dist
+rpm-build
+*.swp
+*.swo
+venv
+netapp_lib.egg-info
