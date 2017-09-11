@@ -57,7 +57,7 @@ class NaServer(object):
     NETAPP_NS = 'http://www.netapp.com/filer/admin'
     STYLE_LOGIN_PASSWORD = 'basic_auth'
     STYLE_CERTIFICATE = 'certificate_auth'
-    VERIFY_SSL = False
+    VERIFY_SSL = True
 
     def __init__(self, host, server_type=SERVER_TYPE_FILER,
                  transport_type=TRANSPORT_TYPE_HTTP,
