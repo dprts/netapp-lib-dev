@@ -72,8 +72,8 @@ class NaServer(object):
         self._username = username
         self._password = password
         self._trace = trace
-        self._refresh_conn = True
         self._verify_ssl = verify_ssl
+        self._refresh_conn = True
 
         LOG.debug('Using NetApp controller: %s', self._host)
 
@@ -204,6 +204,11 @@ class NaServer(object):
     def set_password(self, password):
         """Set the password for authentication."""
         self._password = password
+        self._refresh_conn = True
+
+    def set_ssl_verification(self, verify_ssl):
+        """Enable or disable SSL verification"""
+        self._verify_ssl = verify_ssl
         self._refresh_conn = True
 
     def set_trace(self, trace=True):
