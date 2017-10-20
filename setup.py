@@ -12,7 +12,7 @@ setup(
     author_email='opensource@netapp.com',
     license='Apache 2.0',
     url='TBD',
-    version='1.0.0',
+    version='1.0.3',
 
     packages=find_packages(),
     install_requires=[
