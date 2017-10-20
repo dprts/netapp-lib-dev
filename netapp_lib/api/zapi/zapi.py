@@ -32,6 +32,7 @@ import ssl
 
 LOG = logging.getLogger(__name__)
 
+
 class NaApiError(NetAppLibException):
     """Api Invocation Errors"""
 
