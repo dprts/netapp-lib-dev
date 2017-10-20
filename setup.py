@@ -12,12 +12,13 @@ setup(
     author_email='opensource@netapp.com',
     license='Apache 2.0',
     url='TBD',
-    version='1.0.3',
+    version='1.0.4',
 
     packages=find_packages(),
     install_requires=[
         "lxml",
-        "oslo.log"
+        "oslo.log",
+        "xmltodict",
     ],
 
     classifiers=[

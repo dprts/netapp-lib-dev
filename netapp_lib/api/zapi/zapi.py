@@ -63,7 +63,8 @@ class NaServer(object):
     def __init__(self, host, server_type=SERVER_TYPE_FILER,
                  transport_type=TRANSPORT_TYPE_HTTP,
                  style=STYLE_LOGIN_PASSWORD, username=None,
-                 password=None, port=None, trace=False, verify_ssl=VERIFY_SSL):
+                 password=None, port=None, trace=False,
+                 cert_file=None, key_file=None, verify_ssl=VERIFY_SSL):
         self._host = host
         self.set_server_type(server_type)
         self.set_transport_type(transport_type)
@@ -75,6 +76,9 @@ class NaServer(object):
         self._trace = trace
         self._verify_ssl = verify_ssl
         self._refresh_conn = True
+
+        self._cert_file = cert_file
+        self._key_file = key_file
 
         LOG.debug('Using NetApp controller: %s', self._host)
 
@@ -205,6 +209,16 @@ class NaServer(object):
     def set_password(self, password):
         """Set the password for authentication."""
         self._password = password
+        self._refresh_conn = True
+
+    def set_cert_file(self, cert_file):
+        """Set the certificate for certificate based authentication."""
+        self._cert_file = cert_file
+        self._refresh_conn = True
+
+    def set_key_file(self, key_file):
+        """Set the key for certificate based authentication."""
+        self._key_file = key_file
         self._refresh_conn = True
 
     def set_ssl_verification(self, verify_ssl):
@@ -347,7 +361,10 @@ class NaServer(object):
         return auth_handler
 
     def _create_certificate_auth_handler(self):
-        raise NotImplementedError()
+        ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+        ctx.load_cert_chain(certfile=self._cert_file, keyfile=self._key_file)
+        auth_handler = urllib.request.HTTPSHandler(context=ctx)
+        return auth_handler
 
     def _create_https_handler(self):
         ctx = ssl.create_default_context()
