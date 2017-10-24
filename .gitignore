@@ -7,3 +7,4 @@ rpm-build
 *.swo
 venv
 netapp_lib.egg-info
+build
